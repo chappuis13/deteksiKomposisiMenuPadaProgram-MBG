@@ -137,10 +137,16 @@ Jika Anda ingin menjalankan aplikasi ini di laptop sendiri:
 
 ---
 
-## 👨‍💻 Tim Pengembang / Penulis
-Chairil Soetiesna
+## 👨‍💻 Developer
 
-MahasiswaTeknik Informatika - Universitas Nusa Putra
-Fokus: Computer Vision & AI Implementation
+<img src="https://via.placeholder.com/150" align="right" width="120" alt="Foto Profil">
 
-Proyek ini diajukan untuk memenuhi Tugas Akhir Mata Kuliah Pengolahan Citra Digital dengan judul: "Implementasi Deep Learning Menggunakan Algoritma YOLOv8 untuk Deteksi Komposisi Menu pada Program Makan Bergizi Gratis".
+**Chairil Soetiesna**
+* **Peran:** Peneliti & Pengembang (Developer)
+* **Instansi:** Mahasiswa Teknik Informatika - Universitas Nusa Putra
+* **Email:** chairilcs13@gmail.com
+* **Fokus:** Computer Vision, Deep Learning, & AI Deployment
+
+> *"Proyek ini diajukan untuk memenuhi Tugas Akhir Mata Kuliah Citra Digital dengan judul: "Implementasi Deep Learning Menggunakan Algoritma YOLOv8 untuk Deteksi Komposisi Menu pada Program Makan Bergizi Gratis".*
+
+---
