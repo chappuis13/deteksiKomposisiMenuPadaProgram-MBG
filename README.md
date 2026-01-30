@@ -133,13 +133,14 @@ Jika Anda ingin menjalankan aplikasi ini di laptop sendiri:
  ┣ 📜 requirements.txt    # Daftar Pustaka Python
  ┣ 📜 packages.txt        # Dependencies Linux (untuk Streamlit Cloud)
  ┗ 📜 README.md           # Dokumentasi Proyek
+```
 
 ---
 
 ## 👨‍💻 Tim Pengembang / Penulis
 Chairil Soetiesna
 
-Mahasiswa [Teknik Informatika] - [Universitas Nusa Putra]
+MahasiswaTeknik Informatika - Universitas Nusa Putra
 Fokus: Computer Vision & AI Implementation
 
-Proyek ini diajukan untuk memenuhi Tugas Pengolahan Citra Digital dengan judul: "Implementasi Deep Learning Menggunakan Algoritma YOLOv8 untuk Deteksi Komposisi Menu pada Program Makan Bergizi Gratis".
+Proyek ini diajukan untuk memenuhi Tugas Akhir Mata Kuliah Pengolahan Citra Digital dengan judul: "Implementasi Deep Learning Menggunakan Algoritma YOLOv8 untuk Deteksi Komposisi Menu pada Program Makan Bergizi Gratis".
