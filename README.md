@@ -1,51 +1,145 @@
-# 🍱 Nutri-Scan: Sistem Monitoring Program Makan Bergizi Gratis (MBG)
+# 🍱 Sistem Deteksi Komposisi Menu pada Program Makan Bergizi Gratis (MBG)
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
-![YOLOv8](https://img.shields.io/badge/AI-YOLOv8-green)
-![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-red)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://deteksikomposisimenupadaprogram-mbg.streamlit.app/)
+![Python Version](https://img.shields.io/badge/Python-3.9%20%7C%203.10-blue)
+![YOLOv8](https://img.shields.io/badge/AI-YOLOv8s-green)
+![Status](https://img.shields.io/badge/Status-Deployed-success)
 
-**Nutri-Scan** adalah aplikasi berbasis Artificial Intelligence (Computer Vision) yang dirancang untuk membantu pengawasan Program Makan Bergizi Gratis di sekolah. Aplikasi ini mendeteksi komponen menu, menghitung estimasi kalori, dan memberikan analisis kelengkapan gizi secara otomatis melalui foto.
+> **Link Aplikasi Live:** [https://deteksikomposisimenupadaprogram-mbg.streamlit.app/](https://deteksikomposisimenupadaprogram-mbg.streamlit.app/)
+
+## 📖 Tentang Proyek
+
+Proyek ini adalah implementasi **Computer Vision** dan **Deep Learning** untuk mendukung pengawasan (monitoring) **Program Makan Bergizi Gratis (MBG)**. Sistem ini dirancang untuk mendeteksi komponen makanan dalam nampan/kotak makan secara otomatis, menghitung estimasi kalori, serta memverifikasi kelengkapan gizi (Karbohidrat, Protein, Sayur, Buah) sesuai standar kesehatan.
+
+Sistem dibangun menggunakan algoritma **YOLOv8 (You Only Look Once)** yang telah dilatih ulang (fine-tuned) dengan dataset spesifik menu katering sekolah Indonesia.
 
 ---
 
-## 🌟 Fitur Unggulan
+## 🌟 Fitur Utama
 
-1.  **AI Detection (51 Kelas):** Mendeteksi Nasi, Lauk (Ayam/Ikan/Telur), Sayur, Buah, dan Susu dengan presisi.
-2.  **Smart Filtering:** Algoritma cerdas untuk mengatasi tumpukan makanan (misal: Ayam di atas Nasi).
-3.  **HD Upscaling (PCD):** Fitur *Image Processing* untuk memperjelas foto buram/gelap sebelum dideteksi AI.
-4.  **Auto-Calculation:** Menghitung Total Kalori & Estimasi Makronutrisi (Karbo/Protein/Lemak).
-5.  **PDF Reporting:** Cetak laporan resmi hasil analisis sekali klik.
-6.  **Database History:** Menyimpan riwayat scan harian secara otomatis.
+### 1. Deteksi Multi-Kelas (51 Jenis Makanan)
+Sistem mampu mengenali 51 item spesifik yang umum ditemukan pada menu makan siang sekolah, mulai dari nasi, berbagai olahan ayam/ikan, hingga variasi sayuran dan buah potong.
+
+### 2. Smart Filtering & Handling Occlusion
+Menggunakan algoritma *post-processing* khusus untuk mengatasi masalah tumpukan makanan (misal: Ayam menutupi Nasi). Sistem memprioritaskan deteksi objek krusial (Nasi/Lauk) dibanding wadah/tray.
+
+### 3. HD Upscaling (PCD Preprocessing)
+Terintegrasi dengan modul **Pengolahan Citra Digital (PCD)**:
+* **CLAHE:** *Contrast Limited Adaptive Histogram Equalization* untuk memperjelas tekstur nasi putih pada nampan stainless.
+* **Sharpening:** Mempertegas tepi objek agar deteksi AI lebih akurat pada kondisi cahaya minim.
+
+### 4. Analisis Gizi & Makronutrisi
+Secara otomatis mengonversi hasil deteksi menjadi data kuantitatif:
+* Total Kalori (kkal).
+* Estimasi Gramasi Makronutrisi (Karbohidrat, Protein, Lemak).
+* Visualisasi grafik Pie Chart dan Bar Chart.
+
+### 5. Pelaporan Otomatis (PDF)
+Menghasilkan laporan resmi dalam format PDF yang berisi bukti visual (foto terdeteksi), rincian menu, analisis grafik, dan rekomendasi perbaikan gizi.
+
+### 6. Riwayat Scan (Database)
+Menyimpan data hasil pemindaian harian ke dalam database SQLite untuk keperluan rekapitulasi dan audit.
 
 ---
 
 ## 🛠️ Teknologi yang Digunakan
 
-* **Deep Learning:** YOLOv8 (Ultralytics) - Trained on 12k+ Images.
-* **Web Framework:** Streamlit.
-* **Image Processing:** OpenCV (CLAHE, Bilateral Filter).
-* **Visualization:** Matplotlib.
-* **Database:** SQLite.
+* **Core AI:** [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics) (Model: `yolov8s.pt`)
+* **Frontend Framework:** [Streamlit](https://streamlit.io/)
+* **Image Processing:** OpenCV (`cv2`) - Headless Version
+* **Data Manipulation:** Pandas & NumPy
+* **Visualization:** Matplotlib
+* **Report Generation:** FPDF
+* **Database:** SQLite3
 
 ---
 
-## 📸 Cara Penggunaan
+## 🧠 Dataset & Model Training
 
-1.  Buka aplikasi (Link Deployment).
-2.  **Upload Foto** nampan makanan atau gunakan **Kamera Langsung**.
-3.  (Opsional) Centang **"Mode HD"** jika foto kurang jelas.
-4.  Klik **"Mulai Analisis"**.
-5.  Lihat hasil deteksi, grafik gizi, dan rekomendasi sistem.
-6.  Download **Laporan PDF** untuk arsip.
+Model AI dilatih menggunakan dataset yang dikurasi khusus untuk konteks MBG:
+
+* **Jumlah Kelas:** 51 Kelas (Lihat rincian di bawah).
+* **Jumlah Data:** 12.000+ Citra (Training/Validation/Test).
+* **Preprocessing:** Resize 640x640, Auto-Orientation.
+* **Augmentation:** Flip, Rotation, Exposure, Blur (untuk simulasi kamera HP).
+* **Base Model:** YOLOv8s (Small) - Dipilih karena keseimbangan antara kecepatan dan akurasi.
+
+<details>
+<summary><b>🔻 Klik untuk melihat Daftar 51 Kelas Deteksi</b></summary>
+
+| Kategori | Item Menu |
+| :--- | :--- |
+| **Karbohidrat** | Nasi Putih, Nasi Kuning, Nasi Goreng, Mie, Kentang Goreng, Burger |
+| **Protein Hewani** | Ayam (Goreng/Bakar/Kecap/Krispi/Suwir), Katsu, Nugget, Olahan Sapi, Bakso, Lele Goreng, Telur (Rebus/Goreng/Kecap) |
+| **Protein Nabati** | Tahu (Goreng/Bacem), Tempe (Goreng/Bacem/Orek) |
+| **Sayuran** | Sayur Sop, Bayam, Tumis Sayur, Pakcoy, Kangkung, Cah Sayur, Selada, Timun, Tomat, Kemangi |
+| **Buah-buahan** | Pisang, Jeruk, Apel, Semangka, Melon, Pepaya, Salak, Anggur, Kelengkeng, Buah Naga, Strawberry |
+| **Pelengkap** | Acar, Keripik Tempe, Susu, Tray/Wadah |
+
+</details>
 
 ---
 
-## 💻 Instalasi Lokal
+## 📸 Tangkapan Layar (Screenshot)
 
-Jika ingin menjalankan di laptop sendiri:
+| Tampilan Awal & Upload | Hasil Deteksi AI |
+| :---: | :---: |
+| ![UI Upload](https://via.placeholder.com/400x200?text=UI+Upload+Foto) | ![Hasil AI](https://via.placeholder.com/400x200?text=Deteksi+YOLOv8) |
 
-```bash
-git clone [https://github.com/username-anda/NutriScan-MBG.git](https://github.com/username-anda/NutriScan-MBG.git)
-cd NutriScan-MBG
-pip install -r requirements.txt
-streamlit run app.py
+| Analisis Grafik | Laporan PDF |
+| :---: | :---: |
+| ![Grafik Gizi](https://via.placeholder.com/400x200?text=Pie+Chart+Gizi) | ![PDF Report](https://via.placeholder.com/400x200?text=Contoh+Laporan+PDF) |
+
+---
+
+## 💻 Cara Instalasi Lokal (Localhost)
+
+Jika Anda ingin menjalankan aplikasi ini di laptop sendiri:
+
+1.  **Clone Repository**
+    ```bash
+    git clone [https://github.com/USERNAME_ANDA/NAMA_REPO_ANDA.git](https://github.com/USERNAME_ANDA/NAMA_REPO_ANDA.git)
+    cd NAMA_REPO_ANDA
+    ```
+
+2.  **Buat Virtual Environment (Disarankan)**
+    ```bash
+    python -m venv venv
+    # Windows:
+    venv\Scripts\activate
+    # Mac/Linux:
+    source venv/bin/activate
+    ```
+
+3.  **Install Dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Jalankan Aplikasi**
+    ```bash
+    streamlit run app.py
+    ```
+
+---
+
+## 📂 Struktur Direktori
+
+```text
+📦 ROOT PROJECT
+ ┣ 📜 app.py              # File Utama (Frontend & Logic)
+ ┣ 📜 database.py         # Modul Manajemen Database (SQLite)
+ ┣ 📜 best.pt             # Model YOLOv8 Hasil Training (Weights)
+ ┣ 📜 requirements.txt    # Daftar Pustaka Python
+ ┣ 📜 packages.txt        # Dependencies Linux (untuk Streamlit Cloud)
+ ┗ 📜 README.md           # Dokumentasi Proyek
+
+---
+
+## 👨‍💻 Tim Pengembang / Penulis
+Chairil Soetiesna
+
+Mahasiswa [Teknik Informatika] - [Universitas Nusa Putra]
+Fokus: Computer Vision & AI Implementation
+
+Proyek ini diajukan untuk memenuhi Tugas Pengolahan Citra Digital dengan judul: "Implementasi Deep Learning Menggunakan Algoritma YOLOv8 untuk Deteksi Komposisi Menu pada Program Makan Bergizi Gratis".
